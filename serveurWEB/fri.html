@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de rencontre Frigo et Congélateur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rosybrown;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1200px;
+        }
+
+        /* Titre et logo */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-family: Marker Felt, fantasy;
+        }
+
+        .header img {
+            width: 60px;
+            height: 60px;
+        }
+
+        /* Styles pour les armoires du menu */
+        .wardrobe-container {
+            display: flex;
+            position: absolute; 
+            right: 20px;
+            top: 20px; 
+        }
+
+        .wardrobe {
+            width: 125px; 
+            height: 200px;
+            background-color: #f77f00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            margin-left: 10px; 
+            position: relative;
+            overflow: hidden; /* Pour cacher le contenu lorsque l'armoire est fermée */
+        }
+
+        /* Styles pour l'ouverture des portes */
+        .open .wardrobe-left {
+            transform: rotateY(-120deg);
+        }
+
+        .open .wardrobe-right {
+            transform: rotateY(120deg);
+        }
+
+        /* Contenu à l'intérieur de l'armoire (menu déroulant) */
+        .menu-content {
+            position: absolute;
+            top: 0; /* Affichage du contenu à l'intérieur de l'armoire */
+            right: 0;
+            background-color: white;
+            width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            display: none; /* Cacher par défaut */
+            flex-direction: column;
+        }
+
+        .open .menu-content {
+            display: flex; /* Afficher le menu quand l'armoire est ouverte */
+        }
+
+        .menu-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: black;
+            display: block;
+        }
+
+        .menu-content a:hover {
+            background-color: #ddd;
+        }
+
+        .fridge-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Congélateur */
+        .freezer {
+            width: 100%;
+            height: 150px;
+            background-color: #c0c0c0;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .freezer-door {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            right: 0;
+            transform-origin: right;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        .freezer-door.porte-congelateur-fermee {
+            transform: rotateY(0deg);
+        }
+
+        .freezer-door.porte-congelateur-ouverte {
+            transform: rotateY(-180deg);
+        }
+
+        .handle-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .freezer-door.porte-congelateur-ouverte .handle-button {
+            display: none;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(135, 206, 250, 0.7);
+            border-radius: 50%;
+            display: flex;
+        }
+
+        .bubble img {
+            border-radius: 50%;
+        }
+
+        .bubble1 {
+            width: 75px;
+            height: 75px;
+            left: 30px;
+        }
+
+        .bubble2 {
+            width: 75px;
+            height: 75px;
+        }
+
+        .bubble3 {
+            width: 75px;
+            height: 75px;
+            right: 30px;
+        }
+
+        /* Frigo */
+        .fridge {
+            width: 100%;
+            height: 425px;
+            background-color: #c0c0c0;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Porte du frigo */
+        .door {
+            width: 100%;
+            height: 418px;
+            margin-top: 150px;
+            background-color: #ffffff;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            right: 0;
+            transform-origin: right;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        .door.porte-frigo-fermee {
+            transform: rotateY(0deg);
+        }
+
+        .door.porte-frigo-ouverte {
+            transform: rotateY(-180deg);
+        }
+
+        .inside-fridge {
+            width: 100%;
+            height: 100%;
+            background-color: #d8e2dc;
+            border-radius: 0 0 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .profile h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+            transition: opacity 0.8s ease;
+        }
+
+        .profile-description {
+            font-size: 16px;
+            color: #666;
+            transition: opacity 0.8s ease;
+        }
+
+        .door-content {
+            padding: 20px;
+            text-align: left;
+            transform: rotateY(180deg);
+        }
+
+        .door-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .door-content p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .open-button {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .closed-door-image {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/225x450?text=Porte+Fermée');
+            background-size: cover;
+            background-position: center;
+            display: block;
+        }
+
+        .door.porte-frigo-fermee .door-content h3,
+        .door.porte-frigo-fermee .door-content p {
+            opacity: 0;
+        }
+
+        .door.porte-frigo-ouverte .closed-door-image {
+            display: none;
+        }
+
+        .door.porte-frigo-ouverte .door-content h3,
+        .door.porte-frigo-ouverte .door-content p {
+            opacity: 1;
+        }
+
+        .fridge-feet {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            bottom: -7.5px;
+        }
+
+        .foot {
+            width: 40px;
+            height: 20px;
+            background-color: #808080;
+            border-radius: 5px;
+        }
+
+        .foot-left {
+            margin-left: 10px;
+        }
+
+        .foot-right {
+            margin-right: 10px;
+        }
+
+        .floor {
+            width: 100%;
+            height: 15px;
+            background-color: #4B4B4B;
+            position: relative;
+            bottom: -15px;
+            border-radius: 0 0 50px 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Titre et logo -->
+    <div class="header">
+        <h1>Frigidaireuo</h1>
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <!-- Armoires de menu en dehors de la navbar -->
+    <div class="wardrobe-container">
+        <div class="wardrobe" id="wardrobeMenu">
+            <div class="menu-content">
+                <a href="#">Likes</a>
+                <a href="#">Messages</a>
+                <a href="#">Paramètres</a>
+            </div>
+            <div class="wardrobe-text">Menu</div>
+        </div>
+        <div class="wardrobe" id="wardrobeInscription">
+            <div class="menu-content">
+                <a href="#">S'inscrire</a>
+            </div>
+            <div class="wardrobe-text">Inscription</div>
+        </div>
+        <div class="wardrobe" id="wardrobeConnexion">
+            <div class="menu-content">
+                <a href="#">Se connecter</a>
+            </div>
+            <div class="wardrobe-text">Connexion</div>
+        </div>
+    </div>
+
+    <!-- Conteneur du frigo et congélateur -->
+    <div class="fridge-container">
+        <!-- Congélateur -->
+        <div class="freezer">
+            <div class="freezer-door porte-congelateur-fermee" id="porteCongelateur" onclick="fermerCongelateur()">
+                <button class="handle-button" id="boutonCongelateur" onclick="ouvrirCongelateur(event)">Ouvrir</button>
+            </div>
+            <div class="bubble bubble1">
+                <img src="doublecoeur.png" alt="">
+            </div>
+            <div class="bubble bubble2">
+                <img src="" alt="">
+            </div>
+            <div class="bubble bubble3">
+                <img src="message.png" alt="">
+            </div>
+        </div>
+
+        <!-- Partie du frigo (contenu interne) -->
+        <div class="fridge">
+            <div class="inside-fridge" id="inside-fridge">
+                <div class="profile" id="profile-container">
+                    <img src="https://via.placeholder.com/150" alt="Photo de profil" id="profile-img">
+                    <h3 id="profile-name">Alex</h3>
+                    <p class="profile-description" id="profile-desc">Aime la cuisine et les voyages</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Porte du frigo (animée) -->
+        <div class="door porte-frigo-ouverte" id="porteFrigo">
+            <div class="closed-door-image"></div>
+            <div class="door-content">
+                <h3>Description :</h3>
+                <p id="profile-age">Âge : 18 ans</p>
+                <p id="profile-details">Aime le sport, lire des livres et voyager.</p>
+            </div>
+        </div>
+
+        <!-- Ajout des pieds -->
+        <div class="fridge-feet">
+            <div class="foot foot-left"></div>
+            <div class="foot foot-right"></div>
+        </div>
+
+        <!-- Ajout du sol -->
+        <div class="floor"></div>
+    </div>
+
+    <!-- Bouton pour ouvrir/fermer le frigo et congélateur -->
+    <button class="open-button" id="boutonFrigo" onclick="ouvrirFermerFrigo()">Fermer le frigo</button>
+
+    <script>
+        let frigoOuvert = true;
+
+        // Fonction pour ouvrir/fermer le frigo
+        function ouvrirFermerFrigo() {
+            const porteFrigo = document.getElementById('porteFrigo');
+            const boutonFrigo = document.getElementById('boutonFrigo');
+
+            if (frigoOuvert) {
+                porteFrigo.classList.remove('porte-frigo-ouverte');
+                porteFrigo.classList.add('porte-frigo-fermee');
+                boutonFrigo.textContent = "Ouvrir le frigo";
+                setTimeout(changerProfil, 800);
+                setTimeout(() => {
+                    porteFrigo.classList.remove('porte-frigo-fermee');
+                    porteFrigo.classList.add('porte-frigo-ouverte');
+                    boutonFrigo.textContent = "Fermer le frigo";
+                    frigoOuvert = true;
+                }, 1250);
+            } else {
+                porteFrigo.classList.remove('porte-frigo-ouverte');
+                porteFrigo.classList.add('porte-frigo-fermee');
+                boutonFrigo.textContent = "Ouvrir le frigo";
+                frigoOuvert = false;
+            }
+        }
+
+        function changerProfil() {
+            const profiles = [
+                { name: "Alex", age: "18 ans", description: "Aime la cuisine et les voyages", img: "https://via.placeholder.com/150", details: "Aime le sport, lire des livres et voyager." },
+                { name: "Marie", age: "25 ans", description: "Passionnée de musique et de cinéma", img: "https://via.placeholder.com/150/ff7f50", details: "Joue du piano et adore les films d'action." },
+                { name: "Julien", age: "30 ans", description: "Amateur de randonnée et de nature", img: "https://via.placeholder.com/150/20b2aa", details: "Participe à des marathons de montagne." },
+                { name: "Sophie", age: "22 ans", description: "Fan de mode et de voyages", img: "https://via.placeholder.com/150/ff6347", details: "Voyage souvent en Europe pour les défilés de mode." }
+            ];
+            const randomIndex = Math.floor(Math.random() * profiles.length);
+            const profile = profiles[randomIndex];
+            document.getElementById('profile-img').src = profile.img;
+            document.getElementById('profile-name').textContent = profile.name;
+            document.getElementById('profile-age').textContent = `Âge : ${profile.age}`;
+            document.getElementById('profile-desc').textContent = profile.description;
+            document.getElementById('profile-details').textContent = profile.details;
+        }
+
+        function ouvrirCongelateur(event) {
+            event.stopPropagation();
+            const porteCongelateur = document.getElementById('porteCongelateur');
+            const boutonCongelateur = document.getElementById('boutonCongelateur');
+            porteCongelateur.classList.remove('porte-congelateur-fermee');
+            porteCongelateur.classList.add('porte-congelateur-ouverte');
+            boutonCongelateur.style.display = "none";
+        }
+
+        function fermerCongelateur() {
+            const porteCongelateur = document.getElementById('porteCongelateur');
+            const boutonCongelateur = document.getElementById('boutonCongelateur');
+            if (porteCongelateur.classList.contains('porte-congelateur-ouverte')) {
+                porteCongelateur.classList.remove('porte-congelateur-ouverte');
+                porteCongelateur.classList.add('porte-congelateur-fermee');
+                boutonCongelateur.style.display = "block";
+            }
+        }
+
+        // Fonction pour ouvrir les portes des armoires (menu)
+        const armoires = document.querySelectorAll('.wardrobe');
+        armoires.forEach(armoire => {
+            armoire.addEventListener('click', () => {
+                armoire.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+
+</html>
