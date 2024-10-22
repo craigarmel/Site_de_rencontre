@@ -8,3 +8,6 @@ Install express
 Install nodemon
 Install ejs
 Install pg
+
+Créer un .env 
+---
