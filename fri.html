@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frigidaireuo OFF</title>
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rosybrown;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1200px;
+        }
+
+        /* Titre et logo */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            width: 100%; /* S'assurer que l'élément occupe toute la largeur */
+            padding-right: 20px; /* Ajout pour un peu d'espace à droite */
+            color: white;
+            font-size: 24px;
+            font-family: Marker Felt, fantasy;
+        }
+
+        /* Style pour les boutons Abonnement + et Déconnexion */
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto; /* S'assurer que les boutons vont à droite */
+            padding-right: 25px; /* Ajuste cette valeur */
+        }
+
+        .header img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .header-buttons button {
+            padding: 10px 20px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .header-buttons button:hover {
+            background-color: #ffd700;
+        }
+        
+        /* Styles pour les armoires du menu */
+        .wardrobe-container {
+            display: flex;
+            position: absolute; 
+            right: 20px;
+            top: 20px; 
+        }
+
+        .wardrobe {
+            width: 125px; 
+            height: 200px;
+            background-color: #f77f00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            margin-left: 10px; 
+            position: relative;
+            overflow: hidden; 
+        }
+
+        /* Styles pour l'ouverture des portes */
+        .open .wardrobe-left {
+            transform: rotateY(-120deg);
+        }
+
+        .open .wardrobe-right {
+            transform: rotateY(120deg);
+        }
+
+        /* Contenu à l'intérieur de l'armoire (menu déroulant) */
+        .menu-content {
+            position: absolute;
+            top: 0; 
+            right: 0;
+            background-color: white;
+            width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            display: none; 
+            flex-direction: column;
+        }
+
+        .open .menu-content {
+            display: flex; 
+        }
+
+        .menu-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: black;
+            display: block;
+        }
+
+        .menu-content a:hover {
+            background-color: #ddd;
+        }
+
+        .fridge-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Congélateur */
+        .freezer {
+            width: 100%;
+            height: 150px;
+            background-color: #c0c0c0;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .freezer-door {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            right: 0;
+            transform-origin: right;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        .freezer-door.porte-congelateur-fermee {
+            transform: rotateY(0deg);
+        }
+
+        .freezer-door.porte-congelateur-ouverte {
+            transform: rotateY(-180deg);
+        }
+
+        .handle-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .freezer-door.porte-congelateur-ouverte .handle-button {
+            display: none;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(135, 206, 250, 0.7);
+            border-radius: 50%;
+            display: flex;
+        }
+
+        .bubble img {
+            border-radius: 50%;
+        }
+
+        .bubble1 {
+            width: 75px;
+            height: 75px;
+            left: 30px;
+        }
+
+        .bubble2 {
+            width: 75px;
+            height: 75px;
+        }
+
+        .bubble3 {
+            width: 75px;
+            height: 75px;
+            right: 30px;
+        }
+
+        /* Frigo */
+        .fridge {
+            width: 100%;
+            height: 425px;
+            background-color: #c0c0c0;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Porte du frigo */
+        .door {
+            width: 100%;
+            height: 418px;
+            margin-top: 150px;
+            background-color: #ffffff;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            right: 0;
+            transform-origin: right;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        .door.porte-frigo-fermee {
+            transform: rotateY(0deg);
+        }
+
+        .door.porte-frigo-ouverte {
+            transform: rotateY(-180deg);
+        }
+
+        .inside-fridge {
+            width: 100%;
+            height: 100%;
+            background-color: #d8e2dc;
+            border-radius: 0 0 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .profile h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+            transition: opacity 0.8s ease;
+        }
+
+        .profile-description {
+            font-size: 16px;
+            color: #666;
+            transition: opacity 0.8s ease;
+        }
+
+        .door-content {
+            padding: 20px;
+            text-align: left;
+            transform: rotateY(180deg);
+        }
+
+        .door-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .door-content p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .open-button {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .buttons-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 400px; 
+        }
+
+        .like-button, .pass-button {
+            padding: 10px 20px;
+            background-color: #f77f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 150px;
+        }
+
+        .like-button {
+            background-color: #28a745; 
+        }
+
+        .pass-button {
+            background-color: #dc3545; 
+        }
+
+
+        .closed-door-image {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/225x450?text=Porte+Fermée');
+            background-size: cover;
+            background-position: center;
+            display: block;
+        }
+
+        .door.porte-frigo-fermee .door-content h3,
+        .door.porte-frigo-fermee .door-content p {
+            opacity: 0;
+        }
+
+        .door.porte-frigo-ouverte .closed-door-image {
+            display: none;
+        }
+
+        .door.porte-frigo-ouverte .door-content h3,
+        .door.porte-frigo-ouverte .door-content p {
+            opacity: 1;
+        }
+
+        .fridge-feet {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            bottom: -7.5px;
+        }
+
+        .foot {
+            width: 40px;
+            height: 20px;
+            background-color: #808080;
+            border-radius: 5px;
+        }
+
+        .foot-left {
+            margin-left: 10px;
+        }
+
+        .foot-right {
+            margin-right: 10px;
+        }
+
+        .floor {
+            width: 100%;
+            height: 15px;
+            background-color: #4B4B4B;
+            position: relative;
+            bottom: -15px;
+            border-radius: 0 0 50px 50px;
+        }
+
+        .description {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 4;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Titre et logo -->
+    <div class="header">
+        <h1><a href="fri.html" style="color: white; text-decoration: none;">Frigidaireuo</a></h1>
+        <img src="logo.png" alt="Logo">
+        <!-- Boutons Abonnement + et Déconnexion -->
+        <div class="header-buttons">
+            <button id="abonnement-button" onclick="window.location.href='abonnement+.html'">Abonnement +</button>
+            <button id="deconnexion-button" onclick="window.location.href='accueil.html'">Déconnexion</button>
+        </div>
+    </div>
+
+
+    <!-- Conteneur du frigo et congélateur -->
+    <div class="fridge-container">
+        <!-- Congélateur -->
+        <div class="freezer">
+            <div class="freezer-door porte-congelateur-fermee" id="porteCongelateur" onclick="fermerCongelateur()">
+                <button class="handle-button" id="boutonCongelateur" onclick="ouvrirCongelateur(event)">Ouvrir</button>
+            </div>
+            <div class="bubble bubble1" onmouseover="afficherDescription('match')" onmouseout="cacherDescription()">
+                <img src="doublecoeur.png" alt="Match" onclick="afficherProfilsLikes()">
+                <span class="description" id="description1"></span>
+            </div>            
+            
+            <div class="bubble bubble2" onmouseover="afficherDescription('paramètres')" onmouseout="cacherDescription()">
+                <img src="logoparametres.png" alt="Paramètres">
+                <span class="description" id="description2"></span>
+            </div>
+            
+            <div class="bubble bubble3" onmouseover="afficherDescription('conversation')" onmouseout="cacherDescription()">
+                <img src="message.png" alt="Conversation" onclick="afficherConversations()">
+                <span class="description" id="description3"></span>
+            </div>
+        </div>
+
+        <!-- Partie du frigo (contenu interne) -->
+        <div class="fridge">
+            <div class="inside-fridge" id="inside-fridge">
+                <div class="profile" id="profile-container">
+                    <img src="https://via.placeholder.com/150" alt="Photo de profil" id="profile-img">
+                    <h3 id="profile-name">Alex</h3>
+                    <p class="profile-description" id="profile-desc">Aime la cuisine et les voyages</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Porte du frigo (animée) -->
+        <div class="door porte-frigo-ouverte" id="porteFrigo">
+            <div class="closed-door-image"></div>
+            <div class="door-content">
+                <h3>Description :</h3>
+                <p id="profile-age">Âge : 18 ans</p>
+                <p id="profile-details">Aime le sport, lire des livres et voyager.</p>
+            </div>
+        </div>
+
+        <!-- Ajout des pieds -->
+        <div class="fridge-feet">
+            <div class="foot foot-left"></div>
+            <div class="foot foot-right"></div>
+        </div>
+
+        <!-- Ajout du sol -->
+        <div class="floor"></div>
+    </div>
+
+   <!-- Boutons Like et Pass -->
+<div class="buttons-container">
+    <button class="pass-button" onclick="passProfil()">Pass</button>
+    <button class="like-button" onclick="likeProfil()">Like</button>
+</div>
+
+
+    <script>
+        let frigoOuvert = true;
+        let likedProfiles = [];
+        let initialX = null;  // Variable pour stocker la position initiale du geste
+
+    // Fonction pour ouvrir/fermer le frigo
+    function ouvrirFermerFrigo() {
+    const porteFrigo = document.getElementById('porteFrigo');
+    if (frigoOuvert) {
+        porteFrigo.classList.remove('porte-frigo-ouverte');
+        porteFrigo.classList.add('porte-frigo-fermee');
+        frigoOuvert = false;
+        setTimeout(() => {
+            likedProfiles.push({
+                name: document.getElementById('profile-name').textContent,
+                img: document.getElementById('profile-img').src,
+                details: document.getElementById('profile-details').textContent
+            });
+            changerProfil();
+        }, 800);
+        setTimeout(() => {
+            porteFrigo.classList.remove('porte-frigo-fermee');
+            porteFrigo.classList.add('porte-frigo-ouverte');
+            frigoOuvert = true;
+        }, 1250);
+    }
+}
+
+// Fonction pour "Pass" un profil (changer de profil sans ajouter aux likes)
+function passProfil() {
+        const porteFrigo = document.getElementById('porteFrigo');
+        if (frigoOuvert) {
+            porteFrigo.classList.remove('porte-frigo-ouverte');
+            porteFrigo.classList.add('porte-frigo-fermee');
+            frigoOuvert = false;
+            setTimeout(() => {
+                changerProfil(); // On change simplement le profil sans l'ajouter aux likes
+            }, 800);
+            setTimeout(() => {
+                porteFrigo.classList.remove('porte-frigo-fermee');
+                porteFrigo.classList.add('porte-frigo-ouverte');
+                frigoOuvert = true;
+            }, 1250);
+        }
+    }
+
+// Fonction pour liker le profil (Like)
+function likeProfil() {
+    const porteFrigo = document.getElementById('porteFrigo');
+    if (frigoOuvert) {
+        porteFrigo.classList.remove('porte-frigo-ouverte');
+        porteFrigo.classList.add('porte-frigo-fermee');
+        frigoOuvert = false;
+        setTimeout(() => {
+            const profileName = document.getElementById('profile-name').textContent;
+
+            // Vérifie si le profil est déjà liké pour éviter les doublons
+            if (!likedProfiles.some(profile => profile.name === profileName)) {
+                likedProfiles.push({
+                    name: profileName,
+                    img: document.getElementById('profile-img').src,
+                    details: document.getElementById('profile-details').textContent
+                });
+            }
+
+            changerProfil(); // Changer de profil après avoir liké
+        }, 800);
+        setTimeout(() => {
+            porteFrigo.classList.remove('porte-frigo-fermee');
+            porteFrigo.classList.add('porte-frigo-ouverte');
+            frigoOuvert = true;
+        }, 1250);
+    }
+}
+
+
+// Fonction pour passer le profil (Pass)
+function passProfil() {
+    const porteFrigo = document.getElementById('porteFrigo');
+    if (frigoOuvert) {
+        porteFrigo.classList.remove('porte-frigo-ouverte');
+        porteFrigo.classList.add('porte-frigo-fermee');
+        frigoOuvert = false;
+        setTimeout(() => {
+            changerProfil(); // On change simplement le profil sans l'ajouter aux likes
+        }, 800);
+        setTimeout(() => {
+            porteFrigo.classList.remove('porte-frigo-fermee');
+            porteFrigo.classList.add('porte-frigo-ouverte');
+            frigoOuvert = true;
+        }, 1250);
+    }
+}
+
+    // Fonction pour changer de profil
+    function changerProfil() {
+        const profiles = [
+    { name: "Alex", age: "18 ans", description: "Aime la cuisine et les voyages", img: "https://via.placeholder.com/150", details: "Aime le sport, lire des livres et voyager." },
+    { name: "Marie", age: "25 ans", description: "Passionnée de musique et de cinéma", img: "https://via.placeholder.com/150/ff7f50", details: "Joue du piano et adore les films d'action." },
+    { name: "Julien", age: "30 ans", description: "Amateur de randonnée et de nature", img: "https://via.placeholder.com/150/20b2aa", details: "Participe à des marathons de montagne." },
+    { name: "Sophie", age: "22 ans", description: "Fan de mode et de voyages", img: "https://via.placeholder.com/150/ff6347", details: "Voyage souvent en Europe pour les défilés de mode." },
+    { name: "Lucas", age: "26 ans", description: "Geek et passionné de jeux vidéo", img: "https://via.placeholder.com/150/4682b4", details: "Joue à des compétitions d'e-sport." },
+    { name: "Elodie", age: "27 ans", description: "Adore les animaux et la nature", img: "https://via.placeholder.com/150/6a5acd", details: "Travaille dans un refuge pour animaux." },
+    { name: "Paul", age: "29 ans", description: "Passionné par les voitures et la mécanique", img: "https://via.placeholder.com/150/b22222", details: "Possède une collection de voitures classiques." },
+    { name: "Anaïs", age: "24 ans", description: "Fan de fitness et de nutrition", img: "https://via.placeholder.com/150/dc143c", details: "Participe à des compétitions de bodybuilding." },
+    { name: "Hugo", age: "23 ans", description: "Amateur de photographie et de design", img: "https://via.placeholder.com/150/00ced1", details: "Photographe freelance dans le milieu artistique." },
+    { name: "Léa", age: "21 ans", description: "Passionnée d'architecture et d'art", img: "https://via.placeholder.com/150/daa520", details: "Étudiante en architecture et dessine des plans." },
+    { name: "Mathieu", age: "31 ans", description: "Fan de sport extrême et de sensations fortes", img: "https://via.placeholder.com/150/8b0000", details: "Pratique le saut en parachute et le parapente." },
+    { name: "Claire", age: "28 ans", description: "Amatrice de cuisine et de pâtisserie", img: "https://via.placeholder.com/150/ff69b4", details: "A une chaîne YouTube de cuisine." },
+    { name: "Arthur", age: "32 ans", description: "Passionné de lecture et d'histoire", img: "https://via.placeholder.com/150/32cd32", details: "Écrit des essais sur l'histoire européenne." },
+    { name: "Emma", age: "19 ans", description: "Amoureuse des animaux et de la nature", img: "https://via.placeholder.com/150/ff4500", details: "Étudie la biologie animale." },
+    { name: "Nicolas", age: "34 ans", description: "Geek et fan de nouvelles technologies", img: "https://via.placeholder.com/150/191970", details: "Développeur passionné par l'intelligence artificielle." },
+    { name: "Justine", age: "26 ans", description: "Fan de voyages et de découvertes", img: "https://via.placeholder.com/150/228b22", details: "Blogueuse voyage, visitant des destinations insolites." },
+    { name: "Thomas", age: "28 ans", description: "Musicien passionné de guitare", img: "https://via.placeholder.com/150/4169e1", details: "Joue dans un groupe de rock local." },
+    { name: "Manon", age: "24 ans", description: "Aime la danse et la peinture", img: "https://via.placeholder.com/150/d2691e", details: "Professeure de danse classique et artiste amateur." },
+    { name: "Benoît", age: "33 ans", description: "Fan de cinéma et de séries", img: "https://via.placeholder.com/150/8a2be2", details: "Anime un podcast sur le cinéma." },
+    { name: "Céline", age: "27 ans", description: "Passionnée de photographie et de voyages", img: "https://via.placeholder.com/150/ff1493", details: "Fait des photos de paysages autour du monde." },
+    { name: "Antoine", age: "22 ans", description: "Fan de jeux de société et de stratégie", img: "https://via.placeholder.com/150/20b2aa", details: "Organise des tournois de jeux de société." },
+    { name: "Chloé", age: "25 ans", description: "Amatrice de mode et de couture", img: "https://via.placeholder.com/150/ff8c00", details: "Crée ses propres vêtements et accessoires." },
+    { name: "Raphaël", age: "29 ans", description: "Amateur de sports nautiques et de surf", img: "https://via.placeholder.com/150/4682b4", details: "Surfeur professionnel et formateur." },
+    { name: "Camille", age: "20 ans", description: "Aime la nature et le yoga", img: "https://via.placeholder.com/150/2e8b57", details: "Pratique le yoga en plein air chaque jour." },
+    { name: "Maxime", age: "31 ans", description: "Fan de musique électronique et DJ", img: "https://via.placeholder.com/150/6495ed", details: "Mixe dans des clubs et festivals." }
+];
+
+        const randomIndex = Math.floor(Math.random() * profiles.length);
+        const profile = profiles[randomIndex];
+        document.getElementById('profile-img').src = profile.img;
+        document.getElementById('profile-name').textContent = profile.name;
+        document.getElementById('profile-age').textContent = `Âge : ${profile.age}`;
+        document.getElementById('profile-desc').textContent = profile.description;
+        document.getElementById('profile-details').textContent = profile.details;
+    }
+
+    // Détecter le swipe gauche/droite
+    function swipeDetect(event) {
+        const profileContainer = document.getElementById('profile-container');
+        if (!initialX) {
+            initialX = event.touches ? event.touches[0].clientX : event.clientX;
+            return;
+        }
+
+        const currentX = event.touches ? event.touches[0].clientX : event.clientX;
+        const diffX = initialX - currentX;
+
+        // Swipe à gauche (pass)
+        if (diffX > 50) {
+            ouvrirFermerFrigo();
+        }
+        // Swipe à droite (like)
+        else if (diffX < -50) {
+            ouvrirFermerFrigo();
+        }
+
+        initialX = null; // Réinitialise après le swipe
+    }
+
+    // Ajout des événements tactiles et souris pour swiper
+    const profileContainer = document.getElementById('profile-container');
+    profileContainer.addEventListener('touchstart', swipeDetect);
+    profileContainer.addEventListener('touchmove', swipeDetect);
+    profileContainer.addEventListener('mousedown', swipeDetect);
+    profileContainer.addEventListener('mousemove', swipeDetect);
+
+        function ouvrirCongelateur(event) {
+            event.stopPropagation();
+            const porteCongelateur = document.getElementById('porteCongelateur');
+            const boutonCongelateur = document.getElementById('boutonCongelateur');
+            porteCongelateur.classList.remove('porte-congelateur-fermee');
+            porteCongelateur.classList.add('porte-congelateur-ouverte');
+            boutonCongelateur.style.display = "none";
+        }
+
+        function fermerCongelateur() {
+            const porteCongelateur = document.getElementById('porteCongelateur');
+            const boutonCongelateur = document.getElementById('boutonCongelateur');
+            if (porteCongelateur.classList.contains('porte-congelateur-ouverte')) {
+                porteCongelateur.classList.remove('porte-congelateur-ouverte');
+                porteCongelateur.classList.add('porte-congelateur-fermee');
+                setTimeout(() => {
+                    boutonCongelateur.style.display = "block";  
+                }, 700);  
+            }
+        }
+
+    function ouvrirCongelateurEtAfficherLikes(event) {
+    event.stopPropagation();
+    const porteCongelateur = document.getElementById('porteCongelateur');
+    const boutonCongelateur = document.getElementById('boutonCongelateur');
+    
+    // Ouvre le congélateur
+    if (porteCongelateur.classList.contains('porte-congelateur-fermee')) {
+        porteCongelateur.classList.remove('porte-congelateur-fermee');
+        porteCongelateur.classList.add('porte-congelateur-ouverte');
+        boutonCongelateur.style.display = "none";
+        
+        // Affiche les profils likés
+        afficherLikedProfiles();
+    } else {
+        // Ferme le congélateur
+        porteCongelateur.classList.remove('porte-congelateur-ouverte');
+        porteCongelateur.classList.add('porte-congelateur-fermee');
+        setTimeout(() => {
+            boutonCongelateur.style.display = "block";
+        }, 800);
+    }
+}
+
+// Fonction pour afficher les profils likés
+function afficherLikedProfiles() {
+    const fridgeContent = document.getElementById('inside-fridge');
+    fridgeContent.innerHTML = "";  // Efface le contenu précédent
+
+    if (likedProfiles.length > 0) {
+        // Création d'une liste pour organiser les profils en colonne
+        const ul = document.createElement('ul');
+        ul.style.listStyleType = 'none';  // Retirer les puces
+        ul.style.padding = '0';
+        
+        likedProfiles.forEach(profile => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '15px';  // Espacement entre les éléments
+            
+            li.innerHTML = `
+                <div class="profile">
+                    <img src="${profile.img}" alt="Photo de profil" style="width: 75px; height: 75px; border-radius: 50%;">
+                    <h3>${profile.name}</h3>
+                </div>
+            `;
+            ul.appendChild(li);
+        });
+        fridgeContent.appendChild(ul);  // Ajoute la liste au contenu du frigo
+    } else {
+        fridgeContent.innerHTML = "<p>Aucun profil liké.</p>";
+    }
+}
+
+
+        // Fonction pour ouvrir les portes des armoires (menu)
+        const armoires = document.querySelectorAll('.wardrobe');
+        armoires.forEach(armoire => {
+            armoire.addEventListener('click', () => {
+                armoire.classList.toggle('open');
+            });
+        });
+
+        function afficherDescription(type) {
+            let description;
+            if (type === 'match') {
+                description = "Match";
+                document.getElementById('description1').textContent = description;
+                document.getElementById('description1').style.display = 'block';
+            } else if (type === 'paramètres') {
+                description = "Paramètres";
+                document.getElementById('description2').textContent = description;
+                document.getElementById('description2').style.display = 'block';
+            } else if (type === 'conversation') {
+                description = "Conversation";
+                document.getElementById('description3').textContent = description;
+                document.getElementById('description3').style.display = 'block';
+            }
+        }
+
+        function cacherDescription() {
+            document.getElementById('description1').style.display = 'none';
+            document.getElementById('description2').style.display = 'none';
+            document.getElementById('description3').style.display = 'none';
+        }
+
+        window.addEventListener('resize', function() {
+    const minWidth = 1225;
+    const minHeight = 416;
+    
+    if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
+        // Réinitialise la taille de la fenêtre
+        window.resizeTo(minWidth, minHeight);
+        alert('La taille minimale de la fenêtre est de 1225 x 416 pixels.');
+    }
+})
+
+
+function afficherProfilsLikes() {
+    const porteFrigo = document.getElementById('porteFrigo');
+    const doorContent = document.querySelector('.door-content'); // Sélectionner le contenu de la porte du frigo
+
+    if (frigoOuvert) {
+        porteFrigo.classList.remove('porte-frigo-ouverte');
+        porteFrigo.classList.add('porte-frigo-fermee');
+        frigoOuvert = false;
+
+        // Cache tout le contenu de la porte du frigo (description, âge, détails, etc.)
+        doorContent.style.display = 'none';  // Cache les détails sur la porte
+
+        setTimeout(() => {
+            const fridgeContent = document.getElementById('inside-fridge');
+            fridgeContent.innerHTML = ''; // Efface le contenu précédent
+
+            if (likedProfiles.length > 0) {
+                // Créer une liste pour afficher les profils likés
+                const ul = document.createElement('ul'); // Créer une liste non ordonnée
+                ul.style.listStyleType = 'none';  // Retirer les puces de liste
+                ul.style.padding = '0';  // Pas d'espacement par défaut
+                ul.style.margin = '0';   // Pas de marge par défaut
+                ul.style.display = 'block';  // S'assurer que la liste s'affiche correctement
+
+                // Limiter la hauteur du frigo et permettre le défilement
+                fridgeContent.style.maxHeight = '400px';  // Ajuste cette valeur en fonction de la hauteur de ton frigo
+                fridgeContent.style.overflowY = 'auto';  // Active le défilement vertical si nécessaire
+                fridgeContent.style.paddingRight = '10px';  // Petite marge pour éviter de coller au bord droit
+                fridgeContent.style.display = 'block';  // S'assurer que le contenu reste en mode bloc
+
+                // Positionner le contenu en haut au lieu du centre
+                fridgeContent.style.alignItems = 'flex-start';  // S'assurer que les éléments sont alignés en haut
+
+                likedProfiles.forEach(profile => {
+                    const li = document.createElement('li');  // Créer un élément de liste pour chaque profil
+                    li.style.display = 'flex';  // Utiliser flexbox pour aligner les éléments
+                    li.style.alignItems = 'center';  // Aligner les éléments verticalement
+                    li.style.padding = '10px';  // Ajouter du padding autour de chaque élément
+                    li.style.borderBottom = '1px solid #ccc';  // Séparateur entre les profils
+                    li.style.marginBottom = '10px';  // Espacement entre les éléments
+
+                    li.innerHTML = `
+                        <img src="${profile.img}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                        <div>
+                            <h3 style="margin: 0; font-size: 18px;">${profile.name}</h3>
+                            <p style="margin: 0; font-size: 14px; color: #777;">${profile.age} ans</p>
+                        </div>
+                    `;
+
+                    ul.appendChild(li);  // Ajouter chaque profil à la liste
+                });
+
+                fridgeContent.appendChild(ul);  // Ajouter la liste au contenu du frigo
+                fridgeContent.scrollTop = 0;  // Assurer que le scroll commence en haut
+            } else {
+                fridgeContent.innerHTML = "<p>Aucun profil liké.</p>";
+            }
+
+            setTimeout(() => {
+                porteFrigo.classList.remove('porte-frigo-fermee');
+                porteFrigo.classList.add('porte-frigo-ouverte');
+                frigoOuvert = true;
+
+                // Ne pas remettre le contenu de la porte visible après avoir visualisé les profils likés
+                doorContent.style.display = 'none';  // Garde les détails cachés en mode Match
+            }, 1250);
+        }, 800);
+    }
+}
+
+// Fonction pour afficher les profils likés et démarrer une conversation
+function afficherConversations() {
+    const fridgeContent = document.getElementById('inside-fridge');
+    fridgeContent.innerHTML = "";  // Efface le contenu précédent
+
+    if (likedProfiles.length > 0) {
+        const ul = document.createElement('ul');
+        ul.style.listStyleType = 'none';  // Retirer les puces
+        ul.style.padding = '0';
+
+        likedProfiles.forEach(profile => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '15px';  // Espacement entre les éléments
+            
+            li.innerHTML = `
+                <div class="profile">
+                    <img src="${profile.img}" alt="Photo de profil" style="width: 75px; height: 75px; border-radius: 50%;">
+                    <h3>${profile.name}</h3>
+                    <button onclick="demarrerConversation('${profile.name}')">Démarrer une conversation</button>
+                </div>
+            `;
+            ul.appendChild(li);
+        });
+        fridgeContent.appendChild(ul);  // Ajoute la liste au contenu du frigo
+    } else {
+        fridgeContent.innerHTML = "<p>Aucun profil liké pour démarrer une conversation.</p>";
+    }
+}
+
+// Fonction pour démarrer une conversation (simulé)
+function demarrerConversation(profileName) {
+    const fridgeContent = document.getElementById('inside-fridge');
+    fridgeContent.innerHTML = `
+        <h2>Conversation avec ${profileName}</h2>
+        <div class="chat-window">
+            <div id="chat-messages">
+                <p><strong>${profileName} :</strong> Salut !</p>
+            </div>
+            <input type="text" id="message-input" placeholder="Tapez votre message..." />
+            <button onclick="envoyerMessage('${profileName}')">Envoyer</button>
+        </div>
+    `;
+}
+
+// Fonction pour envoyer un message (simulé)
+function envoyerMessage(profileName) {
+    const input = document.getElementById('message-input');
+    const message = input.value;
+    if (message.trim()) {
+        const chatMessages = document.getElementById('chat-messages');
+        const newMessage = `<p><strong>Vous :</strong> ${message}</p>`;
+        chatMessages.innerHTML += newMessage;
+        input.value = '';  // Efface l'input
+    }
+}
+
+
+    </script>
+</body>
+</html>
