@@ -4,13 +4,15 @@ import usersRoutes from './routes/users.routes.js'
 import vitrineRoutes from './routes/vitrine.routes.js'
 import appRoutes from './routes/app.routes.js'
 import path from 'path'
-import {connect} from './database/connect.postgres.js'
-import { fileURLToPath } from 'url'
 import bp from 'body-parser'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
+import {connect} from './database/connect.postgres.js'
+import { fileURLToPath } from 'url'
+
+dotenv.config()
 
 const app = express()
-const port = 3000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -31,8 +33,8 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.listen(port, () => {
-  console.log(`Server is running on https://localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on https://localhost:${process.env.PORT}`)
 })
 
 connect()
