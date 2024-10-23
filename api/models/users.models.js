@@ -24,12 +24,21 @@ export const CreateUserModel = (sequelize) => {
         },
         gender: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
-        interested_by: {
+        interestedBy: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.NOW
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.NOW
+        }
     })
+
     return User
 }

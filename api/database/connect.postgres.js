@@ -23,4 +23,4 @@ const connect = async () => {
       }
 }
 
-export {connect, UserModel}
+export {connect, UserModel, sequelize}

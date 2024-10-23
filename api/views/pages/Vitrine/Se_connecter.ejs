@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un compte</title>
+    <title>Se connecter</title>
 </head>
 <body>
     <div class="home">
@@ -10,18 +10,18 @@
     </div>
 
     <div class="login">
-        <h1>Créer un compte</h1>
-        <form>
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" placeholder="Votre pseudo" required>
-            <label for="emailLogin">Email</label>
-            <input type="emailLogin" id="emailLogin" name="emailLogin" placeholder="Votre email" required>
-            <label for="passwordLogin">Mot de passe</label>
-            <input type="passwordLogin" id="passwordLogin" name="passwordLogin" placeholder="Votre mot de passe" required>
-            <label for="confirmPassword">Confirmer le mot de passe</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" required>
-            <button type="submitLoginForm">S'enregistrer</button>
+        <h1>Se connecter</h1>
+        <form action="/auth/Se_connecter" method="POST">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Votre email" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="Confirmez votre mot de passe" required>
+            <button type="submit">Se connecter</button>
         </form>
-    </div>    
+        <p>Vous n'avez pas encore de compte ? <a href="/Creer_un_compte">Créer un compte</a></p>
+    </div> 
+    <% if ((typeof message !== 'undefined' && message)){ %>
+        <div class="alert alert-success"><%= message %></div>
+    <% } %>
 </body>
 </html>
