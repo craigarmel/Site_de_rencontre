@@ -1,0 +1,329 @@
+/* Style pour la page de Login */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("photo\ fond\ d\'ecran.jpg"); /* Chemin vers votre image */
+    background-size: cover; /* L'image couvre tout l'écran */
+    background-position: center; /* Centrer l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Style pour le header */
+/* Style pour le header */
+header {
+    width: 100%;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 40px;
+}
+
+/* Style pour la barre de navigation */
+.nav-bar {
+    display: flex;
+    justify-content: space-between; /* Sépare le titre et le bouton */
+    align-items: center;
+    width: 100%;
+}
+
+.nav-title {
+    font-size: 28px; /* Increase the font size */
+    color: #ff4081; /* Change the color */
+    font-weight: bold; /* Keep it bold */
+    margin: 0;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+}
+
+/* Style pour le bouton de connexion */
+.login-button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #ff6299;
+}
+
+
+
+
+.login-button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #ff6299;
+}
+
+/* Contenu centré sous le header */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 130px; /* Pour laisser de l'espace sous le header fixe */
+    width: 100%;
+}
+
+.form-card {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 350px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-card .logo {
+    width: 100px;
+    margin-bottom: -10px;
+}
+
+.form-card h1 {
+    font-size: 18px;
+    color: #ff4081;
+    margin-bottom: 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #555;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.age-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.age-group select {
+    width: 45%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.age-group span {
+    font-size: 16px;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.submit-button {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background-color: #ff6299;
+}
+
+/* Style pour la modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+/* Styles pour les champs d'entrée */
+.form-input {
+    width: 100%; /* Assurez-vous que chaque champ utilise 100% de la largeur de son conteneur */
+    padding: 10px; /* Ajouter du rembourrage pour un meilleur confort */
+    margin: 10px 0; /* Ajouter de l'espacement entre les champs */
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 5px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclure le rembourrage et la bordure dans la largeur totale */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+/* Style pour la section info avec les icônes */
+.info-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px 0;
+    padding: 20px 0;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.info-box {
+    flex: 1;
+    padding: 20px;
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.info-box h3 {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Texte d'avertissement en bas */
+.info-box p {
+    font-size: 12px;
+    color: #777;
+}
+/* Forcer les icônes à avoir la même taille */
+.info-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    object-fit: cover; /* S'assure que l'image garde ses proportions tout en remplissant l'espace */
+    border-radius: 50%; /* Si vous souhaitez que les icônes aient une forme circulaire */
+    background-color: #f3f3f3; /* Optionnel : couleur de fond au cas où les images ont des zones transparentes */
+}
+/* Style général de la section */
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center; /* Aligne verticalement l'image et la bulle de texte */
+    margin: 20px;
+    flex-basis: 16%; /* Permet d'avoir deux blocs côte à côte en fonction de l'écran */
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    object-fit: cover; /* Garantit que l'image garde ses proportions tout en remplissant la zone */
+}
+
+/* Style de la bulle de texte */
+.info-text-bubble {
+    background-color: #f4f4f4; /* Couleur de fond de la bulle */
+    border-radius: 20px; /* Arrondir les coins pour créer un effet de bulle */
+    padding: 10%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Effet d'ombre pour donner du relief */
+    max-width: 300px;
+    display: flex;
+    align-items: center; /* Centre le texte dans la bulle */
+    justify-content: center; /* Centre horizontalement le contenu dans la bulle */
+}
+
+.info-text-bubble h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    text-align: center; /* Centre le texte dans la bulle */
+}
+
+/* Ajustements pour petits écrans */
+@media (max-width: 768px) {
+    .info-box {
+        flex-basis: 100%; /* Les éléments prennent toute la largeur de l'écran sur petits écrans */
+    }
+}

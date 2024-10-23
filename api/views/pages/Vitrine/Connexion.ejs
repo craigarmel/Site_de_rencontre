@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de base</title>
+    <link rel="stylesheet" href="connexion.css">
+</head>
+
+<body>
+    <!-- En-tête avec bouton de connexion -->
+    <header>
+        <nav class="nav-bar">
+            <h1 class="nav-title">&nbsp;Frigidairrre</h1>  <!-- Titre à gauche -->
+            <button id="loginBtn" class="login-button">Se connecter</button><!-- Bouton de connexion -->
+        </nav>
+    </header>
+
+    <!-- Formulaire centré -->
+    <section class="center-content">
+        <div class="form-card">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h4>Avec frigidairrre trouver <br>votre âme sœur</h4>
+            <form>
+                <div class="form-group">
+                    <label>Que recherchez-vous ?</label>
+                    <select>
+                        <option value="hommes">Hommes</option>
+                        <option value="femmes">Femmes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Âge</label>
+                    <div class="age-group">
+                        <select id="minAge"></select>
+                        <span>à</span>
+                        <select id="maxAge"></select>
+                    </div>
+                </div>
+
+                <button type="button" id="viewSinglesBtn" class="submit-button">Voir nos frais célibataires</button> <!-- Bouton mis à jour -->
+            </form>
+        </div>
+    </section>
+
+    <!-- Modale de Connexion -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Connexion</h2>
+            <form id="loginForm">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="submit-button">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-signup">&times;</span>
+            <h2>Inscription</h2>
+            <form id="signupForm">
+                <label for="signupUsername">Nom d'utilisateur :</label>
+                <input type="text" id="signupUsername" name="signupUsername" class="form-input" required>
+    
+                <label for="signupPassword">Mot de passe :</label>
+                <input type="password" id="signupPassword" name="signupPassword" class="form-input" required>
+    
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+    
+                <label for="searchingFor">Je recherche :</label>
+                <select id="searchingFor" name="searchingFor" class="form-input" required>
+                    <option value="homme">Homme</option>
+                    <option value="femme">Femme</option>
+                </select>
+    
+                <label for="ageRange">Mon âge :</label>
+                <select id="ageRange" name="ageRange" class="form-input" required>
+                    <option value="18-25">18 à 25 ans</option>
+                    <option value="25-35">25 à 35 ans</option>
+                    <option value="35-45">35 à 45 ans</option>
+                    <option value="45-55">45 à 55 ans</option>
+                    <option value="55-65">55 à 65 ans</option>
+                    <option value="65-80">65 à 80 ans</option>
+                </select>
+    
+                <!-- Conteneur pour les messages d'erreur -->
+                <div id="error-message" style="color: red; margin-top: 10px;"></div>
+    
+                <button type="submit" class="submit-button">S'inscrire</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <!-- Section avec les icônes et textes -->
+    <section class="info-section">
+        <div class="info-box">
+            <img src="photo 1.png" alt="Icône" class="info-icon">
+            <div class="info-text-bubble">
+                <h3>L’application de rencontre préférée des étudiants de l'EFREI</h3>
+            </div>
+        </div>
+        <div class="info-box">
+            <img src="photo 2.png" alt="Icône" class="info-icon">
+            <div class="info-text-bubble">
+                <h3>Events frigidairrre : ateliers et soirées pour célibataires</h3>
+            </div>
+        </div>
+        <div class="info-box">
+            <img src="photo 3.png" alt="Icône" class="info-icon">
+            <div class="info-text-bubble">
+                <h3>Des profils très frais</h3>
+            </div>
+        </div>
+        <div class="info-box">
+            <img src="photo 4.png" alt="Icône" class="info-icon">
+            <div class="info-text-bubble">
+                <h3>Près de 99 français sur 100 aiment frigidairrre</h3>
+            </div>
+        </div>
+    </section>
+
+    <script src="connexion.js"></script>
+</body>
+
+</html>

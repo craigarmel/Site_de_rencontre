@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Match</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/index.css">
 </head>
 <body>
     <div class="headerNonUser">
@@ -25,10 +25,14 @@
     </div>
     
     <div class="contentAcceuil">
-        <div class="backgroundImage">
-            <img src="images/Acceuil.jpg" alt="Acceuil Background">
+        <div class="videoContainer">
+            <video id = "video" autoplay muted loop>
+                <source src="/images/videos/Video_de_presentation.mp4" type="video/mp4">
+                <!-- Fallback si le format n'est pas supporté -->
+                Votre navigateur ne supporte pas la vidéo HTML5.
+            </video>
         </div>
-        <a href="/app"><div class="app">Trouvez l'amour</div></a>
+        <a href="/app"><div class="app">Qu'est-ce que l'amour ?</div></a>
     </div>
 
     <div class="footer">

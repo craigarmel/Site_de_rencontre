@@ -18,4 +18,8 @@ router.get('/Profil', (req, res) => {
     res.render('./pages/app/Profil.ejs')
 })
 
+router.get('/Abonnement', (req, res) => {
+    res.render('./pages/app/Abonnement.ejs')
+})
+
 export default router

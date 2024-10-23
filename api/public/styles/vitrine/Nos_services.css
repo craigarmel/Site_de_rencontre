@@ -10,7 +10,8 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
-    background-color: #eaeaea;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 .headerNonUser {
@@ -18,12 +19,11 @@ body {
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(to bottom, #cfd8e3, #98aecf);
-    padding: 10px 30px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .headerNonUser .home img {
-    height: 60px;
+    height: 3.75rem;
 }
 
 .background {
@@ -33,6 +33,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    opacity: 0.5;
 }
 
 .navigationHeader {
@@ -42,10 +43,10 @@ body {
 }
 
 .navigationHeader a {
-    margin: 0 25px;
+    margin: 0 2.5rem;
     color: #444;
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     transition: color 0.3s ease-in-out;
 }
 
@@ -53,72 +54,66 @@ body {
     color: #007acc;
 }
 
-.login a {
+.login a{
     display: inline-block;
     text-decoration: none;
     color: #444;
     background-color: #ffebf0;
-    padding: 12px 25px;
-    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 0.5rem;
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.login a:hover {
+.login a:hover, .signup a:hover {
     background-color: #ff94b0;
     box-shadow: 0 4px 8px rgba(255, 192, 203, 0.5);
 }
 
-/* Section About */
-.aboutUs {
-    position: relative;
-    background-image: url('images/background.jpg'); /* Replace with your background image path */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
-}
-
-.aboutUs h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.description {
-    font-size: 1.2em;
-    line-height: 1.6;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for text */
-    padding: 30px;
-    border-radius: 15px;
+.container {
+    padding: 4rem;
+    max-width: 1200px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
+}
+
+.services, .aboutUs, .contact {
+    margin-top: 2rem;
+}
+
+.services h1, .aboutUs h1, .contact h1 {
+    margin-top: 0;
     color: #333;
+}
+
+.services p, .aboutUs p, .contact p {
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1.5rem 3rem;
+    margin: 1rem 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition-duration: 0.4s;
+    font-size: 1rem;
+}
+
+.cta-button:hover {
+    background-color: #45a049;
 }
 
 /* Footer */
 .footer {
     background-color: #333;
     color: white;
-    padding: 20px 30px;
+    padding: 1px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,14 +122,14 @@ body {
 
 .navigationFooter {
     display: flex;
-    margin: 10px 0;
+    margin: 10px 0px;
 }
 
 .navigationFooter a {
     color: white;
     text-decoration: none;
-    margin: 0 25px;
-    font-size: 1.2em;
+    margin: 0 2.5rem;
+    font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
@@ -143,8 +138,6 @@ body {
 }
 
 .copyright {
-    font-size: 0.9em;
+    font-size: 0.9rem;
     text-align: center;
 }
-
-

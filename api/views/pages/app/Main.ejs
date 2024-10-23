@@ -1,32 +1,91 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application - Match</title>
+    <title>Frigidaireuo OFF</title>
+    <link rel="icon" href="/images/Logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/app/main.css">
 </head>
+
 <body>
-    <div class="headerUser">
-        <div class="home">
-            <a href="/"><img src="../public/images/logo.png" alt="logo"></a>
-        </div>
-        <div class="navigationHeader">
-            <div class="likes">
-                <img src="../public/images/likes.png" alt="likes">
-                <a href="/app/Likes">Likes</a>
-            </div>
-            <div class="messagerie">
-                <img src="../public/images/messagerie.png" alt="messagerie">
-                <a href="/app/Messagerie">Messagerie</a>
-            </div>
-            <div class="match">
-                <img src="../public/images/messagerie.png" alt="match">
-                <a href="/app">Match</a>
+        <!-- Titre et logo -->
+        <div class="header">
+            <a href="/"><img src="images/logo.png" alt="Logo"></a>
+            <h1 style="color: rgb(104,130,146); text-decoration: none;">Frigidaireuo</h1>
+            <!-- Boutons Abonnement + et Déconnexion -->
+            <div class="header-buttons">
+                <button id="abonnement-button" onclick="window.location.href='/app/Abonnement'">Abonnement</button>
+                <button id="deconnexion-button" onclick="window.location.href='/'">Déconnexion</button>
             </div>
         </div>
-        <div class="profil">
-            <label for="profil">Nom</label>
-            <a href="/app/Profil"><div class="Profil"><img src="../public/images/profil.png" alt="photo de profil"></div></a>
+    
+        <div class="toggle-switch">
+            <input type="checkbox" id="mode-switch">
+            <label for="mode-switch" class="toggle-switch-label"></label>
         </div>
+    
+    
+        <!-- Conteneur du frigo et congélateur -->
+        <div class="fridge-container">
+            <!-- Congélateur -->
+            <div class="freezer">
+                <div class="freezer-door porte-congelateur-fermee" id="porteCongelateur" onclick="fermerCongelateur()">
+                    <button class="handle-button" id="boutonCongelateur" onclick="ouvrirCongelateur(event)">Ouvrir</button>
+                </div>
+                <div class="bubble bubble1" onmouseover="afficherDescription('match')" onmouseout="cacherDescription()">
+                    <img src="images/doublecoeur.png" alt="Match" onclick="afficherProfilsLikes()">
+                    <span class="description" id="description1"></span>
+                </div>            
+                
+                <div class="bubble bubble2" onmouseover="afficherDescription('Retour')" onmouseout="cacherDescription()">
+                    <img src="images/retour.png" alt="Retour" onclick="retourAuProfil(m)">
+                    <span class="description" id="description2"></span>
+                </div>
+                
+                <div class="bubble bubble3" onmouseover="afficherDescription('conversation')" onmouseout="cacherDescription()">
+                    <img src="images/message.png" alt="Conversation" onclick="afficherConversations()">
+                    <span class="description" id="description3"></span>
+                </div>
+            </div>
+    
+            <!-- Partie du frigo (contenu interne) -->
+            <div class="fridge">
+                <div class="inside-fridge" id="inside-fridge">
+                    <div class="profile" id="profile-container">
+                        <img src="https://via.placeholder.com/150" alt="Photo de profil" id="profile-img">
+                        <h3 id="profile-name">Alex</h3>
+                        <p class="profile-description" id="profile-desc">Aime la cuisine et les voyages</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Porte du frigo (animée) -->
+            <div class="door porte-frigo-ouverte" id="porteFrigo">
+                <div class="closed-door-image"></div>
+                <div class="door-content">
+                    <h3>Description :</h3>
+                    <p id="profile-age">Âge : 18 ans</p>
+                    <p id="profile-details">Aime le sport, lire des livres et voyager.</p>
+                </div>
+            </div>
+    
+            <!-- Ajout des pieds -->
+            <div class="fridge-feet">
+                <div class="foot foot-left"></div>
+                <div class="foot foot-right"></div>
+            </div>
+    
+            <!-- Ajout du sol -->
+            <div class="floor"></div>
+        </div>
+    
+       <!-- Boutons Like et Pass -->
+    <div class="buttons-container">
+        <button class="pass-button" onclick="passProfil()">Pass</button>
+        <button class="like-button" onclick="likeProfil()">Like</button>
     </div>
+    <script src="/scripts/main.js"></script>
 </body>
 </html>

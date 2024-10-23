@@ -1,0 +1,653 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.125);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    perspective: 1200px;
+}
+
+/* Titre et logo */
+.header {
+    position: absolute;
+    top: 13px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%; 
+    padding-right: 20px; 
+    color: white;
+    font-size: 12px;
+    font-family: Marker Felt, fantasy;
+}
+
+/* Style pour les boutons Abonnement + et Déconnexion */
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    padding-right: 25px; 
+}
+
+.header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.header-buttons a {
+    text-decoration: none;
+    color: rgb(104, 130, 146);
+}
+
+.header-buttons button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: rgb(104, 130, 146);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.header-buttons button:hover {
+    background-color: #1f1f1f15;
+}
+
+/* Styles pour les armoires du menu */
+.wardrobe-container {
+    display: flex;
+    position: absolute; 
+    right: 20px;
+    top: 13px; 
+}
+
+.wardrobe {
+    width: 125px; 
+    height: 200px;
+    background-color: #0000002f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    margin-left: 10px; 
+    position: relative;
+    overflow: hidden; 
+}
+
+/* Styles pour l'ouverture des portes */
+.open .wardrobe-left {
+    transform: rotateY(-120deg);
+}
+
+.open .wardrobe-right {
+    transform: rotateY(120deg);
+}
+
+/* Contenu à l'intérieur de l'armoire (menu déroulant) */
+.menu-content {
+    position: absolute;
+    top: 0; 
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    display: none; 
+    flex-direction: column;
+}
+
+.open .menu-content {
+    display: flex; 
+}
+
+.menu-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.menu-content a:hover {
+    background-color: #ddd;
+}
+
+.fridge-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Congélateur */
+.freezer {
+    width: 100%;
+    height: 150px;
+    background-color: #c0c0c0;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.freezer-door {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    right: 0;
+    transform-origin: right;
+    transition: transform 0.8s ease;
+    z-index: 2;
+}
+
+.freezer-door.porte-congelateur-fermee {
+    transform: rotateY(0deg);
+}
+
+.freezer-door.porte-congelateur-ouverte {
+    transform: rotateY(-180deg);
+}
+
+.handle-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #969696;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.freezer-door.porte-congelateur-ouverte .handle-button {
+    display: none;
+}
+
+.bubble {
+    position: absolute;
+    background-color: rgba(135, 206, 250, 0.7);
+    border-radius: 50%;
+    display: flex;
+}
+
+.bubble img {
+    border-radius: 50%;
+}
+
+.bubble1 {
+    width: 75px;
+    height: 75px;
+    left: 30px;
+}
+
+.bubble2 {
+    width: 75px;
+    height: 75px;
+}
+
+.bubble3 {
+    width: 75px;
+    height: 75px;
+    right: 30px;
+}
+
+/* Frigo */
+.fridge {
+    width: 100%;
+    height: 425px;
+    background-color: #c0c0c0;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Porte du frigo */
+.door {
+    width: 100%;
+    height: 418px;
+    margin-top: 150px;
+    background-color: #ffffff;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    right: 0;
+    transform-origin: right;
+    transition: transform 0.8s ease;
+    z-index: 2;
+}
+
+.door.porte-frigo-fermee {
+    transform: rotateY(0deg);
+}
+
+.door.porte-frigo-ouverte {
+    transform: rotateY(-180deg);
+}
+
+.inside-fridge {
+    width: 100%;
+    height: 100%;
+    background-image: url();
+    background-color: rgba(44, 44, 44);
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.profile h3 {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    flex-grow: 1;
+    transition: opacity 0.8s ease;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+
+#chat-messages {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#chat-messages p {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+#chat-messages p.others-message {
+    align-self: flex-start;
+    background-color: #e0e0e0;
+    text-align: left;
+}
+
+#chat-messages p.my-message {
+    align-self: flex-end;
+    background-color: #a0e7a0;
+    text-align: right;
+}
+
+.chat-input-container {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    background-color: white;
+    position: absolute;
+    bottom: 10px;
+}
+
+.profile-description {
+    font-size: 16px;
+    color: #ffffff;
+    transition: opacity 0.8s ease;
+}
+
+.profile-grid-conversation {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.profile-conversation {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-conversation img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-conversation h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.profile-conversation button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.profile-conversation button:hover {
+    background-color: #218838;
+}
+
+.door-content {
+    padding: 20px;
+    text-align: left;
+    transform: rotateY(180deg);
+}
+
+.door-content h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.door-content p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.open-button {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #f77f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.buttons-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 400px; 
+}
+
+.like-button, .pass-button {
+    padding: 10px 20px;
+    background-color: #f77f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+}
+
+.like-button {
+    background-color: #28a745; 
+}
+
+.pass-button {
+    background-color: #dc3545; 
+}
+
+
+.closed-door-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://via.placeholder.com/225x450?text=Porte+Fermée');
+    background-size: cover;
+    background-position: center;
+    display: block;
+}
+
+.door.porte-frigo-fermee .door-content h3,
+.door.porte-frigo-fermee .door-content p {
+    opacity: 0;
+}
+
+.door.porte-frigo-ouverte .closed-door-image {
+    display: none;
+}
+
+.door.porte-frigo-ouverte .door-content h3,
+.door.porte-frigo-ouverte .door-content p {
+    opacity: 1;
+}
+
+.fridge-feet {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    bottom: -7.5px;
+}
+
+.foot {
+    width: 40px;
+    height: 20px;
+    background-color: #808080;
+    border-radius: 5px;
+}
+
+.foot-left {
+    margin-left: 10px;
+}
+
+.foot-right {
+    margin-right: 10px;
+}
+
+.floor {
+    width: 100%;
+    height: 15px;
+    background-color: #4B4B4B;
+    position: relative;
+    bottom: -15px;
+    border-radius: 0 0 50px 50px;
+}
+
+.description {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 4;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#chat-messages p {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+#chat-messages p strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#chat-messages p.others-message {
+    align-self: flex-start;
+    background-color: #e0e0e0;
+    text-align: left;
+}
+
+#chat-messages p.my-message {
+    align-self: flex-end;
+    background-color: #a0e7a0;
+    text-align: right;
+}
+
+.chat-input-container {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    background-color: white;
+    position: absolute;
+    bottom: 10px;
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-input-container button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style pour le mode sombre */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.header.dark-mode {
+    color: #000000;
+}
+
+.fridge.dark-mode,.freezer.dark-mode{
+    background-color: #2c2c2c;
+}
+
+.fridge-container.dark-mode{
+    background-color: transparent;
+}
+
+.door.dark-mode, 
+.freezer-door.dark-mode {
+    background-color: #424242;
+}
+
+.like-button.dark-mode {
+    background-color: #1b5e20;
+}
+
+.pass-button.dark-mode {
+    background-color: #b71c1c;
+}
+
+/* Style du bouton toggle */
+.toggle-switch {
+    position: absolute;
+    top: 30px;
+    left: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-switch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.toggle-switch-label {
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    background-color: #111;
+    display: inline-block;
+    border-radius: 25px;
+    position: relative;
+}
+
+.toggle-switch-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input[type="checkbox"]:checked + .toggle-switch-label {
+    background-color: rgb(104,130,146);
+}
+
+input[type="checkbox"]:checked + .toggle-switch-label::after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+}
