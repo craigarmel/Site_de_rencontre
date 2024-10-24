@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url("photo\ fond\ d\'ecran.jpg"); /* Chemin vers votre image */
+    background-image: url("/images/image.png"); /* Chemin vers votre image */
     background-size: cover; /* L'image couvre tout l'écran */
     background-position: center; /* Centrer l'image */
     background-repeat: no-repeat; /* Empêche la répétition de l'image */

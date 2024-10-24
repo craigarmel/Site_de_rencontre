@@ -100,7 +100,7 @@ if (frigoOuvert) {
     porteFrigo.classList.add('porte-frigo-fermee');
     frigoOuvert = false;
     setTimeout(() => {
-        changerProfil(); // On change simplement le profil sans l'ajouter aux likes
+        changerProfil(); 
     }, 800);
     setTimeout(() => {
         porteFrigo.classList.remove('porte-frigo-fermee');
@@ -112,65 +112,39 @@ if (frigoOuvert) {
 
 // Fonction pour changer de profil
 function changerProfil() {
-const profiles = [
-    { name: "Alex", age: "18 ans", description: "Aime la cuisine et les voyages", img: "https://via.placeholder.com/150", details: "Aime le sport, lire des livres et voyager." },
-    { name: "Marie", age: "25 ans", description: "Passionnée de musique et de cinéma", img: "https://via.placeholder.com/150/ff7f50", details: "Joue du piano et adore les films d'action." },
-    { name: "Julien", age: "30 ans", description: "Amateur de randonnée et de nature", img: "https://via.placeholder.com/150/20b2aa", details: "Participe à des marathons de montagne." },
-    { name: "Sophie", age: "22 ans", description: "Fan de mode et de voyages", img: "https://via.placeholder.com/150/ff6347", details: "Voyage souvent en Europe pour les défilés de mode." },
-    { name: "Lucas", age: "26 ans", description: "Geek et passionné de jeux vidéo", img: "https://via.placeholder.com/150/4682b4", details: "Joue à des compétitions d'e-sport." },
-    { name: "Elodie", age: "27 ans", description: "Adore les animaux et la nature", img: "https://via.placeholder.com/150/6a5acd", details: "Travaille dans un refuge pour animaux." },
-    { name: "Paul", age: "29 ans", description: "Passionné par les voitures et la mécanique", img: "https://via.placeholder.com/150/b22222", details: "Possède une collection de voitures classiques." },
-    { name: "Anaïs", age: "24 ans", description: "Fan de fitness et de nutrition", img: "https://via.placeholder.com/150/dc143c", details: "Participe à des compétitions de bodybuilding." },
-    { name: "Hugo", age: "23 ans", description: "Amateur de photographie et de design", img: "https://via.placeholder.com/150/00ced1", details: "Photographe freelance dans le milieu artistique." },
-    { name: "Léa", age: "21 ans", description: "Passionnée d'architecture et d'art", img: "https://via.placeholder.com/150/daa520", details: "Étudiante en architecture et dessine des plans." },
-    { name: "Mathieu", age: "31 ans", description: "Fan de sport extrême et de sensations fortes", img: "https://via.placeholder.com/150/8b0000", details: "Pratique le saut en parachute et le parapente." },
-    { name: "Claire", age: "28 ans", description: "Amatrice de cuisine et de pâtisserie", img: "https://via.placeholder.com/150/ff69b4", details: "A une chaîne YouTube de cuisine." },
-    { name: "Arthur", age: "32 ans", description: "Passionné de lecture et d'histoire", img: "https://via.placeholder.com/150/32cd32", details: "Écrit des essais sur l'histoire européenne." },
-    { name: "Emma", age: "19 ans", description: "Amoureuse des animaux et de la nature", img: "https://via.placeholder.com/150/ff4500", details: "Étudie la biologie animale." },
-    { name: "Nicolas", age: "34 ans", description: "Geek et fan de nouvelles technologies", img: "https://via.placeholder.com/150/191970", details: "Développeur passionné par l'intelligence artificielle." },
-    { name: "Justine", age: "26 ans", description: "Fan de voyages et de découvertes", img: "https://via.placeholder.com/150/228b22", details: "Blogueuse voyage, visitant des destinations insolites." },
-    { name: "Thomas", age: "28 ans", description: "Musicien passionné de guitare", img: "https://via.placeholder.com/150/4169e1", details: "Joue dans un groupe de rock local." },
-    { name: "Manon", age: "24 ans", description: "Aime la danse et la peinture", img: "https://via.placeholder.com/150/d2691e", details: "Professeure de danse classique et artiste amateur." },
-    { name: "Benoît", age: "33 ans", description: "Fan de cinéma et de séries", img: "https://via.placeholder.com/150/8a2be2", details: "Anime un podcast sur le cinéma." },
-    { name: "Céline", age: "27 ans", description: "Passionnée de photographie et de voyages", img: "https://via.placeholder.com/150/ff1493", details: "Fait des photos de paysages autour du monde." },
-    { name: "Antoine", age: "22 ans", description: "Fan de jeux de société et de stratégie", img: "https://via.placeholder.com/150/20b2aa", details: "Organise des tournois de jeux de société." },
-    { name: "Chloé", age: "25 ans", description: "Amatrice de mode et de couture", img: "https://via.placeholder.com/150/ff8c00", details: "Crée ses propres vêtements et accessoires." },
-    { name: "Raphaël", age: "29 ans", description: "Amateur de sports nautiques et de surf", img: "https://via.placeholder.com/150/4682b4", details: "Surfeur professionnel et formateur." },
-    { name: "Camille", age: "20 ans", description: "Aime la nature et le yoga", img: "https://via.placeholder.com/150/2e8b57", details: "Pratique le yoga en plein air chaque jour." },
-    { name: "Maxime", age: "31 ans", description: "Fan de musique électronique et DJ", img: "https://via.placeholder.com/150/6495ed", details: "Mixe dans des clubs et festivals." }
-];
+    const profiles = [
+        { name: "Nathalie", age: "20 ans", description: "Passionnée de voiture et de GTA V", img: "photos/nathan.jpg", details: "S'aime lui même" },
+        { name: "Armel", age: "19 ans", description: "Aime dormir en cours", img: "photos/armel.png", details: "Depuis samedi il dort pas" },
+        { name: "Karuran", age: "20 ans", description: "A une seconde vie, vend des Tours Eiffels au champ de mars", img: "photos/karuran.jpg", details: "A pris un 200 dans le crane" },
+        { name: "Kevin", age: "19 ans", description: "Est riche", img: "photos/Kevin.jpg", details: "Joue à des compétitions d'e-sport." },
+        { name: "Florine", age: "19 ans", description: "Adore les animaux et la nature", img: "photos/florine.jpg", details: "Travaille dans un refuge pour animaux." },
+        { name: "Maxime", age: "22 ans", description: "Aime les cours", img: "photos/maxime.png", details: "Possède une collection de voitures classiques." },
+        { name: "Pierre-Louis", age: "20 ans", description: "Est amoureux de son PC", img: "photos/pl.png", details: "Est scoot" },
+        { name: "Marine", age: "19 ans", description: "Amateur de photographie et de design", img: "photos/marineC.jpg", details: "Photographe freelance dans le milieu artistique." },
+        { name: "Marine", age: "19 ans", description: "Passionnée d'architecture et d'art", img: "photos/marineEO.jpg", details: "Étudiante en architecture et dessine des plans." },
+        { name: "Marie-Grâce", age: "19 ans", description: "Fan de sport extrême et de sensations fortes", img: "photos/MG.JPG", details: "Pratique le saut en parachute et le parapente." },
+        { name: "Cédric", age: "20 ans", description: "Amatrice de cuisine et de pâtisserie", img: "photos/cedric.jpg", details: "A une chaîne YouTube de cuisine." },
+        { name: "Joao Gabriel", age: "19 ans", description: "Passionné de lecture et d'histoire", img: "photos/joao.png", details: "Écrit des essais sur l'histoire européenne." },
+        { name: "Bastien", age: "19 ans", description: "Amoureuse des animaux et de la nature", img: "photos/bastien.JPG", details: "Étudie la biologie animale." },
+        { name: "Yanis", age: "19 ans", description: "Il parait qu'il est tres riche", img: "photos/YanisAB.JPG", details: "Développeur passionné par l'intelligence artificielle." },
+        { name: "Titouan", age: "19 ans", description: "Fan de voyages et de découvertes", img: "photos/titouan.JPG", details: "Blogueuse voyage, visitant des destinations insolites." },
+        { name: "Rayane", age: "28 ans", description: "Musicien passionné de guitare", img: "photos/rayane.png", details: "Joue dans un groupe de rock local." },
+        { name: "Wilhem", age: "24 ans", description: "Aime la danse et la peinture", img: "photos/wilhem.jpeg", details: "Professeure de danse classique et artiste amateur." },
+    ];
 
-const randomIndex = Math.floor(Math.random() * profiles.length);
-const profile = profiles[randomIndex];
-document.getElementById('profile-img').src = profile.img;
-document.getElementById('profile-name').textContent = profile.name;
-document.getElementById('profile-age').textContent = `Âge : ${profile.age}`;
-document.getElementById('profile-desc').textContent = profile.description;
-document.getElementById('profile-details').textContent = profile.details;
+    let profile;
+    do {
+        const randomIndex = Math.floor(Math.random() * profiles.length);
+        profile = profiles[randomIndex];
+    } while (likedProfiles.some(p => p.name === profile.name));
+
+    document.getElementById('profile-img').src = profile.img;
+    document.getElementById('profile-name').textContent = profile.name;
+    document.getElementById('profile-age').textContent = `Âge : ${profile.age}`;
+    document.getElementById('profile-desc').textContent = profile.description;
+    document.getElementById('profile-details').textContent = profile.details;
 }
 
-// Détecter le swipe gauche/droite
-function swipeDetect(event) {
-const profileContainer = document.getElementById('profile-container');
-if (!initialX) {
-    initialX = event.touches ? event.touches[0].clientX : event.clientX;
-    return;
-}
-
-const currentX = event.touches ? event.touches[0].clientX : event.clientX;
-const diffX = initialX - currentX;
-
-// Swipe à gauche (pass)
-if (diffX > 50) {
-    ouvrirFermerFrigo();
-}
-// Swipe à droite (like)
-else if (diffX < -50) {
-    ouvrirFermerFrigo();
-}
-
-initialX = null; // Réinitialise après le swipe
-}
 
 // Ajout des événements tactiles et souris pour swiper
 const profileContainer = document.getElementById('profile-container');
@@ -239,9 +213,10 @@ const armoires = document.querySelectorAll('.wardrobe');
     });
 
 const fridgeContent = document.getElementById('inside-fridge');
-fridgeContent.innerHTML = "";  // Efface le contenu précédent
+fridgeContent.innerHTML = ""; 
 
 if (likedProfiles.length > 0) {
+
     // Création d'une liste pour organiser les profils en colonne
     const ul = document.createElement('ul');
     ul.style.listStyleType = 'none'; 
@@ -310,44 +285,41 @@ if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
 
 function afficherProfilsLikes() {
 const porteFrigo = document.getElementById('porteFrigo');
-const doorContent = document.querySelector('.door-content'); // Sélectionner le contenu de la porte du frigo
+const doorContent = document.querySelector('.door-content'); 
 
 if (frigoOuvert) {
     porteFrigo.classList.remove('porte-frigo-ouverte');
     porteFrigo.classList.add('porte-frigo-fermee');
     frigoOuvert = false;
-
-    // Cache tout le contenu de la porte du frigo (description, âge, détails, etc.)
     doorContent.style.display = 'none';  
 
     setTimeout(() => {
         const fridgeContent = document.getElementById('inside-fridge');
-        fridgeContent.innerHTML = ''; // Efface le contenu précédent
+        fridgeContent.innerHTML = '';
 
         if (likedProfiles.length > 0) {
-            // Créer une liste pour afficher les profils likés
-            const ul = document.createElement('ul'); // Créer une liste non ordonnée
-            ul.style.listStyleType = 'none';  // Retirer les puces de liste
-            ul.style.padding = '0';  // Pas d'espacement par défaut
-            ul.style.margin = '0';   // Pas de marge par défaut
-            ul.style.display = 'block';  // S'assurer que la liste s'affiche correctement
+            const ul = document.createElement('ul'); 
+            ul.style.listStyleType = 'none';  
+            ul.style.padding = '0'; 
+            ul.style.margin = '0';   
+            ul.style.display = 'block'; 
 
             // Limiter la hauteur du frigo et permettre le défilement
-            fridgeContent.style.maxHeight = '400px';  // Ajuste cette valeur en fonction de la hauteur de ton frigo
-            fridgeContent.style.overflowY = 'auto';  // Active le défilement vertical si nécessaire
-            fridgeContent.style.paddingRight = '10px';  // Petite marge pour éviter de coller au bord droit
-            fridgeContent.style.display = 'block';  // S'assurer que le contenu reste en mode bloc
+            fridgeContent.style.maxHeight = '400px'; 
+            fridgeContent.style.overflowY = 'auto';
+            fridgeContent.style.paddingRight = '10px';  
+            fridgeContent.style.display = 'block';  
 
             // Positionner le contenu en haut au lieu du centre
-            fridgeContent.style.alignItems = 'flex-start';  // S'assurer que les éléments sont alignés en haut
+            fridgeContent.style.alignItems = 'flex-start'; 
 
             likedProfiles.forEach(profile => {
-                const li = document.createElement('li');  // Créer un élément de liste pour chaque profil
-                li.style.display = 'flex';  // Utiliser flexbox pour aligner les éléments
-                li.style.alignItems = 'center';  // Aligner les éléments verticalement
-                li.style.padding = '10px';  // Ajouter du padding autour de chaque élément
-                li.style.borderBottom = '1px solid #ccc';  // Séparateur entre les profils
-                li.style.marginBottom = '10px';  // Espacement entre les éléments
+                const li = document.createElement('li'); 
+                li.style.display = 'flex';  
+                li.style.alignItems = 'center'; 
+                li.style.padding = '10px'; 
+                li.style.borderBottom = '1px solid #ccc';  
+                li.style.marginBottom = '10px';  
 
                 li.innerHTML = `
                     <img src="${profile.img}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
@@ -357,11 +329,11 @@ if (frigoOuvert) {
                     </div>
                 `;
 
-                ul.appendChild(li);  // Ajouter chaque profil à la liste
+                ul.appendChild(li); 
             });
 
-            fridgeContent.appendChild(ul);  // Ajouter la liste au contenu du frigo
-            fridgeContent.scrollTop = 0;  // Assurer que le scroll commence en haut
+            fridgeContent.appendChild(ul); 
+            fridgeContent.scrollTop = 0;  
         } else {
             fridgeContent.innerHTML = "<p>Aucun profil liké.</p>";
         }
@@ -372,7 +344,7 @@ if (frigoOuvert) {
             frigoOuvert = true;
 
             // Ne pas remettre le contenu de la porte visible après avoir visualisé les profils likés
-            doorContent.style.display = 'none';  // Garde les détails cachés en mode Match
+            doorContent.style.display = 'none'; 
         }, 1250);
     }, 800);
 }
